@@ -132,6 +132,28 @@ function SettingsDialog({ settings, setSettings }: Props) {
             />
           </div>
 
+          <div>
+            <Label htmlFor="gemini-api-key">
+              <div>Gemini API key</div>
+              <div className="font-light mt-1 text-xs leading-relaxed">
+                Only stored in your browser. Never stored on servers. Overrides
+                your .env config.
+              </div>
+            </Label>
+
+            <Input
+              id="gemini-api-key"
+              placeholder="Gemini API key"
+              value={settings.geminiApiKey || ""}
+              onChange={(e) =>
+                setSettings((s) => ({
+                  ...s,
+                  geminiApiKey: e.target.value,
+                }))
+              }
+            />
+          </div>
+
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
               <AccordionTrigger>Screenshot by URL Config</AccordionTrigger>

@@ -17,6 +17,7 @@ export interface Settings {
   // Only relevant for hosted version
   isTermOfServiceAccepted: boolean;
   anthropicApiKey: string | null; // Added property for anthropic API key
+  geminiApiKey: string | null;
 }
 
 export enum AppState {

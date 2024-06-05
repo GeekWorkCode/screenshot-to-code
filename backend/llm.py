@@ -5,6 +5,10 @@ from openai import AsyncOpenAI
 from openai.types.chat import ChatCompletionMessageParam, ChatCompletionChunk
 from config import IS_DEBUG_ENABLED
 from debug.DebugFileWriter import DebugFileWriter
+import google.generativeai as genai
+import base64
+from io import BytesIO
+from PIL import Image
 
 from utils import pprint_prompt
 
@@ -17,7 +21,8 @@ class Llm(Enum):
     CLAUDE_3_SONNET = "claude-3-sonnet-20240229"
     CLAUDE_3_OPUS = "claude-3-opus-20240229"
     CLAUDE_3_HAIKU = "claude-3-haiku-20240307"
-
+    GEMINI_1_5_FLASH = "gemini-1.5-flash"
+    GEMINI_1_5_PRO = "gemini-1.5-pro"
 
 # Will throw errors if you send a garbage string
 def convert_frontend_str_to_llm(frontend_str: str) -> Llm:
@@ -216,3 +221,84 @@ async def stream_claude_response_native(
         raise Exception("No HTML response found in AI response")
     else:
         return response.content[0].text
+
+
+def encode_image_from_base64(image_base64):
+    # Check if the input is a data URI
+    if image_base64.startswith("data:image/"):
+        # Extract the image data from the data URI
+        image_data = image_base64.split(",")[1]
+        # Decode the base64-encoded image data
+        image_bytes = base64.b64decode(image_data)
+    else:
+        # Assume the input is already base64-encoded
+        image_bytes = base64.b64decode(image_base64)
+
+    # Convert the image bytes into a NumPy array
+    import numpy as np
+    image_array = np.frombuffer(image_bytes, dtype=np.uint8)
+
+    # Return the encoded image array
+    return image_array
+
+async def stream_gemini_response(
+    messages: List[ChatCompletionMessageParam],
+    api_key: str,
+    callback: Callable[[str], Awaitable[None]],
+    model: Llm,
+) -> str:
+    print(f"model.value ==: { model.value }")
+    # genai.configure(api_key=api_key)
+    generation_config = {
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 64,
+        "max_output_tokens": 8192,
+        "response_mime_type": "text/plain",
+        # "api_key":api_key,
+    }
+    # model = genai.GenerativeModel("gemini-1.5-flash")
+
+    # Translate OpenAI messages to Gemini messages
+    # gemini_messages = []
+    # print(f"system ==: {str(messages)}")
+    for message in messages:
+
+        if message["role"] == "system":
+            text_encoding = message["content"]
+        # 打印messages
+        # print(f"message的content: {message["content"]}")
+        elif isinstance(message["content"], list):
+            for content in message["content"]:
+                if content["type"] == "image_url":
+                    # Extract base64 data and media type from data URL
+                    # Example base64 data URL: data:image/png;base64,iVBOR...
+                    image_base64 = cast(str, content["image_url"]["url"])
+                    # Encode the image from the data URI or base64 string
+                    encoded_image = encode_image_from_base64(image_base64)
+
+
+    model = genai.GenerativeModel(
+        model_name=model.value,
+        generation_config=generation_config,
+        
+        # safety_settings = Adjust safety settings
+        # See https://ai.google.dev/gemini-api/docs/safety-settings
+    )
+    im = Image.open(BytesIO(encoded_image))
+ # Call the Gemini AI API with the specified model and generation config
+    genai.configure(api_key=api_key)
+    
+    response = model.generate_content([text_encoding, im], stream=True)
+    # generate_content(gemini_messages, stream=True)
+
+    for chunk in response:
+        await callback(chunk.text)
+
+    if response._result and response._result.candidates:
+        candidate = response._result.candidates[0]
+        if candidate.content and candidate.content.parts:
+            part = candidate.content.parts[0]
+            if part.text:
+                return part.text
+    return ""
