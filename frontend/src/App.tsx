@@ -62,10 +62,10 @@ function App() {
       anthropicApiKey: null,
       geminiApiKey:null,
       screenshotOneApiKey: null,
-      isImageGenerationEnabled: true,
+      isImageGenerationEnabled: false,
       editorTheme: EditorTheme.COBALT,
       generatedCodeConfig: Stack.HTML_TAILWIND,
-      codeGenerationModel: CodeGenerationModel.GPT_4O,
+      codeGenerationModel: CodeGenerationModel.GEMINI_2_0_FLASH,
       // Only relevant for hosted version
       isTermOfServiceAccepted: false,
     },

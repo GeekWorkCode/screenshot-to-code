@@ -41,30 +41,33 @@ function SettingsDialog({ settings, setSettings }: Props) {
       <DialogTrigger>
         <FaCog />
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent
+        className="max-w-full sm:max-w-md w-full p-4 sm:p-6 max-h-[90vh] overflow-y-auto"
+      >
         <DialogHeader>
           <DialogTitle className="mb-4">Settings</DialogTitle>
         </DialogHeader>
-
-        <div className="flex items-center space-x-2">
-          <Label htmlFor="image-generation">
-            <div>DALL-E Placeholder Image Generation</div>
-            <div className="font-light mt-2 text-xs">
-              More fun with it but if you want to save money, turn it off.
-            </div>
-          </Label>
-          <Switch
-            id="image-generation"
-            checked={settings.isImageGenerationEnabled}
-            onCheckedChange={() =>
-              setSettings((s) => ({
-                ...s,
-                isImageGenerationEnabled: !s.isImageGenerationEnabled,
-              }))
-            }
-          />
-        </div>
-        <div className="flex flex-col space-y-6">
+  
+        <div className="flex flex-col space-y-4">
+          <div className="flex items-center space-x-2">
+            <Label htmlFor="image-generation" className="flex-1">
+              <div>DALL-E Placeholder Image Generation</div>
+              <div className="font-light mt-2 text-xs">
+                More fun with it but if you want to save money, turn it off.
+              </div>
+            </Label>
+            <Switch
+              id="image-generation"
+              checked={settings.isImageGenerationEnabled}
+              onCheckedChange={() =>
+                setSettings((s) => ({
+                  ...s,
+                  isImageGenerationEnabled: !s.isImageGenerationEnabled,
+                }))
+              }
+            />
+          </div>
+  
           <div>
             <Label htmlFor="openai-api-key">
               <div>OpenAI API key</div>
@@ -73,7 +76,7 @@ function SettingsDialog({ settings, setSettings }: Props) {
                 your .env config.
               </div>
             </Label>
-
+  
             <Input
               id="openai-api-key"
               placeholder="OpenAI API key"
@@ -86,16 +89,16 @@ function SettingsDialog({ settings, setSettings }: Props) {
               }
             />
           </div>
-
+  
           {!IS_RUNNING_ON_CLOUD && (
             <div>
-              <Label htmlFor="openai-api-key">
+              <Label htmlFor="openai-base-url">
                 <div>OpenAI Base URL (optional)</div>
                 <div className="font-light mt-2 leading-relaxed">
                   Replace with a proxy URL if you don't want to use the default.
                 </div>
               </Label>
-
+  
               <Input
                 id="openai-base-url"
                 placeholder="OpenAI Base URL"
@@ -109,51 +112,7 @@ function SettingsDialog({ settings, setSettings }: Props) {
               />
             </div>
           )}
-
-          <div>
-            <Label htmlFor="anthropic-api-key">
-              <div>Anthropic API key</div>
-              <div className="font-light mt-1 text-xs leading-relaxed">
-                Only stored in your browser. Never stored on servers. Overrides
-                your .env config.
-              </div>
-            </Label>
-
-            <Input
-              id="anthropic-api-key"
-              placeholder="Anthropic API key"
-              value={settings.anthropicApiKey || ""}
-              onChange={(e) =>
-                setSettings((s) => ({
-                  ...s,
-                  anthropicApiKey: e.target.value,
-                }))
-              }
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="gemini-api-key">
-              <div>Gemini API key</div>
-              <div className="font-light mt-1 text-xs leading-relaxed">
-                Only stored in your browser. Never stored on servers. Overrides
-                your .env config.
-              </div>
-            </Label>
-
-            <Input
-              id="gemini-api-key"
-              placeholder="Gemini API key"
-              value={settings.geminiApiKey || ""}
-              onChange={(e) =>
-                setSettings((s) => ({
-                  ...s,
-                  geminiApiKey: e.target.value,
-                }))
-              }
-            />
-          </div>
-
+  
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
               <AccordionTrigger>Screenshot by URL Config</AccordionTrigger>
@@ -171,7 +130,7 @@ function SettingsDialog({ settings, setSettings }: Props) {
                     </a>
                   </div>
                 </Label>
-
+  
                 <Input
                   id="screenshot-one-api-key"
                   className="mt-2"
@@ -187,67 +146,15 @@ function SettingsDialog({ settings, setSettings }: Props) {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Theme Settings</AccordionTrigger>
-              <AccordionContent className="space-y-4 flex flex-col">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="app-theme">
-                    <div>App Theme</div>
-                  </Label>
-                  <div>
-                    <button
-                      className="flex rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50t"
-                      onClick={() => {
-                        document
-                          .querySelector("div.mt-2")
-                          ?.classList.toggle("dark"); // enable dark mode for sidebar
-                        document.body.classList.toggle("dark");
-                        document
-                          .querySelector('div[role="presentation"]')
-                          ?.classList.toggle("dark"); // enable dark mode for upload container
-                      }}
-                    >
-                      Toggle dark mode
-                    </button>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="editor-theme">
-                    <div>
-                      Code Editor Theme - requires page refresh to update
-                    </div>
-                  </Label>
-                  <div>
-                    <Select // Use the custom Select component here
-                      name="editor-theme"
-                      value={settings.editorTheme}
-                      onValueChange={(value) =>
-                        handleThemeChange(value as EditorTheme)
-                      }
-                    >
-                      <SelectTrigger className="w-[180px]">
-                        {capitalize(settings.editorTheme)}
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="cobalt">Cobalt</SelectItem>
-                        <SelectItem value="espresso">Espresso</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
         </div>
-
+  
         <DialogFooter>
           <DialogClose>Save</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
+  
 }
 
 export default SettingsDialog;
