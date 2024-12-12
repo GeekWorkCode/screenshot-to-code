@@ -91,9 +91,9 @@ function App() {
       CodeGenerationModel.GPT_4_TURBO &&
     settings.generatedCodeConfig === Stack.REACT_TAILWIND;
 
-  const showGpt4OMessage =
-    selectedCodeGenerationModel !== CodeGenerationModel.GPT_4O &&
-    appState === AppState.INITIAL;
+  // const showGpt4OMessage =
+  //   selectedCodeGenerationModel !== CodeGenerationModel.GPT_4O &&
+  //   appState === AppState.INITIAL;
 
     const showGemini2Message =
     selectedCodeGenerationModel !== CodeGenerationModel.GEMINI_2_0_FLASH &&
