@@ -95,6 +95,10 @@ function App() {
     selectedCodeGenerationModel !== CodeGenerationModel.GPT_4O &&
     appState === AppState.INITIAL;
 
+    const showGemini2Message =
+    selectedCodeGenerationModel !== CodeGenerationModel.GEMINI_2_0_FLASH &&
+    appState === AppState.INITIAL;
+
   // Indicate coding state using the browser tab's favicon and title
   useBrowserTabIndicator(appState === AppState.CODING);
 
@@ -412,10 +416,10 @@ function App() {
             </div>
           )}
 
-          {showGpt4OMessage && (
+          {showGemini2Message && (
             <div className="rounded-lg p-2 bg-fuchsia-200">
               <p className="text-gray-800 text-sm">
-                Now supporting GPT-4o. Higher quality and 2x faster. Give it a
+                Now supporting Gemini 2.0 Flash. Higher quality and 2x faster. Give it a
                 try!
               </p>
             </div>

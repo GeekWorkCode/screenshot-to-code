@@ -16,7 +16,7 @@ export enum CodeGenerationModel {
 export const CODE_GENERATION_MODEL_DESCRIPTIONS: {
   [key in CodeGenerationModel]: { name: string; inBeta: boolean };
 } = {
-  "gemini-2.0-flash-exp": { name: "GEMINI_2_0_FLASH", inBeta: false },
+  "gemini-2.0-flash-exp": { name: "Gemini 2.0 Flash", inBeta: false },
   "gemini-1.5-flash-8b": { name: "Gemini 1.5 Flash 8b", inBeta: false },
   "gemini-1.5-flash": { name: "Gemini 1.5 Flash", inBeta: false },
   "gemini-1.5-pro": { name: "Gemini 1.5 PRO", inBeta: false },
