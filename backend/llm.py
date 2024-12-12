@@ -15,6 +15,10 @@ from utils import pprint_prompt
 
 # Actual model versions that are passed to the LLMs and stored in our logs
 class Llm(Enum):
+    GEMINI_2_0_FLASH= "gemini-2.0-flash-exp"
+    GEMINI_1_5_FLASH_8_b = "gemini-1.5-flash-8b"
+    GEMINI_1_5_FLASH = "gemini-1.5-flash"
+    GEMINI_1_5_PRO = "gemini-1.5-pro"
     GPT_4O_MINI = "gpt-4o-mini"
     GPT_4_VISION = "gpt-4-vision-preview"
     GPT_4_TURBO = "gpt-4-turbo"
@@ -22,10 +26,6 @@ class Llm(Enum):
     CLAUDE_3_SONNET = "claude-3-sonnet"
     CLAUDE_3_OPUS = "claude-3-opus"
     CLAUDE_3_HAIKU = "claude-3-haiku"
-    GEMINI_1_5_FLASH_8_b = "gemini-1.5-flash-8b"
-    GEMINI_1_5_FLASH = "gemini-1.5-flash"
-    GEMINI_1_5_PRO = "gemini-1.5-pro"
-    GEMINI_2_0_FLASH= "gemini-2.0-flash-exp"
 
 # Will throw errors if you send a garbage string
 def convert_frontend_str_to_llm(frontend_str: str) -> Llm:
@@ -255,7 +255,7 @@ async def stream_gemini_response(
     generation_config = {
         "temperature": 1,
         "top_p": 0.95,
-        "top_k": 64,
+        "top_k": 40,
         "max_output_tokens": 8192,
         "response_mime_type": "text/plain",
         # "api_key":api_key,

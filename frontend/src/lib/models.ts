@@ -1,15 +1,16 @@
 // Keep in sync with backend (llm.py)
 // Order here matches dropdown order
 export enum CodeGenerationModel {
+  GEMINI_2_0_FLASH= "gemini-2.0-flash-exp",
+  GEMINI_1_5_FLASH_8_b = "gemini-1.5-flash-8b",
+  GEMINI_1_5_FLASH = "gemini-1.5-flash",
+  GEMINI_1_5_PRO = "gemini-1.5-pro",
   GPT_4O_MINI = "gpt-4o-mini",
   GPT_4O = "gpt-4o",
   GPT_4_TURBO = "gpt-4-turbo",
   GPT_4_VISION = "gpt_4_vision",
   CLAUDE_3_SONNET = "claude_3_sonnet",
-  GEMINI_1_5_FLASH_8_b = "gemini-1.5-flash-8b",
-  GEMINI_1_5_FLASH = "gemini-1.5-flash",
-  GEMINI_1_5_PRO = "gemini-1.5-pro",
-  GEMINI_2_0_FLASH= "gemini-2.0-flash-exp",
+
 }
 
 // Will generate a static error if a model in the enum above is not in the descriptions
