@@ -41,16 +41,13 @@ function SettingsDialog({ settings, setSettings }: Props) {
       <DialogTrigger>
         <FaCog />
       </DialogTrigger>
-      <DialogContent
-        className="max-w-full sm:max-w-md w-full p-4 sm:p-6 max-h-[90vh] overflow-y-auto"
-      >
+      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-h-[90vh] sm:overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="mb-4">Settings</DialogTitle>
         </DialogHeader>
-  
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 px-2 sm:px-0">
           <div className="flex items-center space-x-2">
-            <Label htmlFor="image-generation" className="flex-1">
+            <Label htmlFor="image-generation" className="text-sm sm:text-base">
               <div>DALL-E Placeholder Image Generation</div>
               <div className="font-light mt-2 text-xs">
                 More fun with it but if you want to save money, turn it off.
@@ -67,94 +64,208 @@ function SettingsDialog({ settings, setSettings }: Props) {
               }
             />
           </div>
-  
-          <div>
-            <Label htmlFor="openai-api-key">
-              <div>OpenAI API key</div>
-              <div className="font-light mt-1 mb-2 text-xs leading-relaxed">
-                Only stored in your browser. Never stored on servers. Overrides
-                your .env config.
-              </div>
-            </Label>
-  
-            <Input
-              id="openai-api-key"
-              placeholder="OpenAI API key"
-              value={settings.openAiApiKey || ""}
-              onChange={(e) =>
-                setSettings((s) => ({
-                  ...s,
-                  openAiApiKey: e.target.value,
-                }))
-              }
-            />
-          </div>
-  
-          {!IS_RUNNING_ON_CLOUD && (
+          <div className="flex flex-col space-y-4 sm:space-y-6">
             <div>
-              <Label htmlFor="openai-base-url">
-                <div>OpenAI Base URL (optional)</div>
-                <div className="font-light mt-2 leading-relaxed">
-                  Replace with a proxy URL if you don't want to use the default.
+              <Label
+                htmlFor="openai-api-key"
+                className="text-sm sm:text-base"
+              >
+                <div>OpenAI API key</div>
+                <div className="font-light mt-1 mb-2 text-xs leading-relaxed">
+                  Only stored in your browser. Never stored on servers. Overrides
+                  your .env config.
                 </div>
               </Label>
-  
+
               <Input
-                id="openai-base-url"
-                placeholder="OpenAI Base URL"
-                value={settings.openAiBaseURL || ""}
+                id="openai-api-key"
+                placeholder="OpenAI API key"
+                value={settings.openAiApiKey || ""}
+                className="text-sm sm:text-base"
                 onChange={(e) =>
                   setSettings((s) => ({
                     ...s,
-                    openAiBaseURL: e.target.value,
+                    openAiApiKey: e.target.value,
                   }))
                 }
               />
             </div>
-          )}
-  
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Screenshot by URL Config</AccordionTrigger>
-              <AccordionContent>
-                <Label htmlFor="screenshot-one-api-key">
-                  <div className="leading-normal font-normal text-xs">
-                    If you want to use URLs directly instead of taking the
-                    screenshot yourself, add a ScreenshotOne API key.{" "}
-                    <a
-                      href="https://screenshotone.com?via=screenshot-to-code"
-                      className="underline"
-                      target="_blank"
-                    >
-                      Get 100 screenshots/mo for free.
-                    </a>
+
+            {!IS_RUNNING_ON_CLOUD && (
+              <div>
+                <Label
+                  htmlFor="openai-api-key"
+                  className="text-sm sm:text-base"
+                >
+                  <div>OpenAI Base URL (optional)</div>
+                  <div className="font-light mt-2 leading-relaxed">
+                    Replace with a proxy URL if you don't want to use the default.
                   </div>
                 </Label>
-  
+
                 <Input
-                  id="screenshot-one-api-key"
-                  className="mt-2"
-                  placeholder="ScreenshotOne API key"
-                  value={settings.screenshotOneApiKey || ""}
+                  id="openai-base-url"
+                  placeholder="OpenAI Base URL"
+                  value={settings.openAiBaseURL || ""}
+                  className="text-sm sm:text-base"
                   onChange={(e) =>
                     setSettings((s) => ({
                       ...s,
-                      screenshotOneApiKey: e.target.value,
+                      openAiBaseURL: e.target.value,
                     }))
                   }
                 />
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+              </div>
+            )}
+
+            <div>
+              <Label
+                htmlFor="anthropic-api-key"
+                className="text-sm sm:text-base"
+              >
+                <div>Anthropic API key</div>
+                <div className="font-light mt-1 text-xs leading-relaxed">
+                  Only stored in your browser. Never stored on servers. Overrides
+                  your .env config.
+                </div>
+              </Label>
+
+              <Input
+                id="anthropic-api-key"
+                placeholder="Anthropic API key"
+                value={settings.anthropicApiKey || ""}
+                className="text-sm sm:text-base"
+                onChange={(e) =>
+                  setSettings((s) => ({
+                    ...s,
+                    anthropicApiKey: e.target.value,
+                  }))
+                }
+              />
+            </div>
+
+            <div>
+              <Label
+                htmlFor="gemini-api-key"
+                className="text-sm sm:text-base"
+              >
+                <div>Gemini API key</div>
+                <div className="font-light mt-1 text-xs leading-relaxed">
+                  Only stored in your browser. Never stored on servers. Overrides
+                  your .env config.
+                </div>
+              </Label>
+
+              <Input
+                id="gemini-api-key"
+                placeholder="Gemini API key"
+                value={settings.geminiApiKey || ""}
+                className="text-sm sm:text-base"
+                onChange={(e) =>
+                  setSettings((s) => ({
+                    ...s,
+                    geminiApiKey: e.target.value,
+                  }))
+                }
+              />
+            </div>
+
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-sm sm:text-base">
+                  Screenshot by URL Config
+                </AccordionTrigger>
+                <AccordionContent>
+                  <Label htmlFor="screenshot-one-api-key" className="text-sm sm:text-base">
+                    <div className="leading-normal font-normal text-xs">
+                      If you want to use URLs directly instead of taking the
+                      screenshot yourself, add a ScreenshotOne API key.{" "}
+                      <a
+                        href="https://screenshotone.com?via=screenshot-to-code"
+                        className="underline"
+                        target="_blank"
+                      >
+                        Get 100 screenshots/mo for free.
+                      </a>
+                    </div>
+                  </Label>
+
+                  <Input
+                    id="screenshot-one-api-key"
+                    className="mt-2 text-sm sm:text-base"
+                    placeholder="ScreenshotOne API key"
+                    value={settings.screenshotOneApiKey || ""}
+                    onChange={(e) =>
+                      setSettings((s) => ({
+                        ...s,
+                        screenshotOneApiKey: e.target.value,
+                      }))
+                    }
+                  />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-sm sm:text-base">Theme Settings</AccordionTrigger>
+                <AccordionContent className="space-y-4 flex flex-col">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="app-theme" className="text-sm sm:text-base">
+                      <div>App Theme</div>
+                    </Label>
+                    <div>
+                      <button
+                        className="flex rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50t"
+                        onClick={() => {
+                          document
+                            .querySelector("div.mt-2")
+                            ?.classList.toggle("dark"); // enable dark mode for sidebar
+                          document.body.classList.toggle("dark");
+                          document
+                            .querySelector('div[role="presentation"]')
+                            ?.classList.toggle("dark"); // enable dark mode for upload container
+                        }}
+                      >
+                        Toggle dark mode
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="editor-theme" className="text-sm sm:text-base">
+                      <div>
+                        Code Editor Theme - requires page refresh to update
+                      </div>
+                    </Label>
+                    <div>
+                      <Select // Use the custom Select component here
+                        name="editor-theme"
+                        value={settings.editorTheme}
+                        onValueChange={(value) =>
+                          handleThemeChange(value as EditorTheme)
+                        }
+                      >
+                        <SelectTrigger className="w-[180px] text-sm sm:text-base">
+                          {capitalize(settings.editorTheme)}
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="cobalt">Cobalt</SelectItem>
+                          <SelectItem value="espresso">Espresso</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
         </div>
-  
         <DialogFooter>
           <DialogClose>Save</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
-  
 }
 
 export default SettingsDialog;
