@@ -84,6 +84,7 @@ If you have Docker installed on your system, in the root directory, run:
 
 ```bash
 echo "OPENAI_API_KEY=sk-your-key" > .env
+echo "VITE_WS_BACKEND_URL=ws://你的IP:7001" > .env
 docker-compose up -d --build
 ```
 
