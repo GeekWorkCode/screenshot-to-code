@@ -65,7 +65,7 @@ function App() {
       isImageGenerationEnabled: true,
       editorTheme: EditorTheme.COBALT,
       generatedCodeConfig: Stack.HTML_TAILWIND,
-      codeGenerationModel: CodeGenerationModel.GPT_4O_2024_05_13,
+      codeGenerationModel: CodeGenerationModel.GPT_4O,
       // Only relevant for hosted version
       isTermOfServiceAccepted: false,
     },
@@ -88,11 +88,11 @@ function App() {
 
   const showReactWarning =
     selectedCodeGenerationModel ===
-      CodeGenerationModel.GPT_4_TURBO_2024_04_09 &&
+      CodeGenerationModel.GPT_4_TURBO &&
     settings.generatedCodeConfig === Stack.REACT_TAILWIND;
 
   const showGpt4OMessage =
-    selectedCodeGenerationModel !== CodeGenerationModel.GPT_4O_2024_05_13 &&
+    selectedCodeGenerationModel !== CodeGenerationModel.GPT_4O &&
     appState === AppState.INITIAL;
 
   // Indicate coding state using the browser tab's favicon and title

@@ -58,8 +58,8 @@ async def stream_openai_response(
     # Add 'max_tokens' only if the model is a GPT4 vision or Turbo model
     if (
         model == Llm.GPT_4_VISION
-        or model == Llm.GPT_4_TURBO_2024_04_09
-        or model == Llm.GPT_4O_2024_05_13
+        or model == Llm.GPT_4_TURBO
+        or model == Llm.GPT_4O
     ):
         params["max_tokens"] = 4096
 

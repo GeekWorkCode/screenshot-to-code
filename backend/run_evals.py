@@ -14,7 +14,7 @@ from evals.core import generate_code_core
 from evals.utils import image_to_data_url
 
 STACK = "ionic_tailwind"
-MODEL = Llm.GPT_4O_2024_05_13
+MODEL = Llm.GPT_4O
 N = 1  # Number of outputs to generate
 
 
