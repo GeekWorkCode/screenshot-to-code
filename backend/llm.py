@@ -19,7 +19,6 @@ class Llm(Enum):
     GEMINI_1_5_FLASH_8_b = "gemini-1.5-flash-8b"
     GEMINI_1_5_FLASH = "gemini-1.5-flash"
     GEMINI_1_5_PRO = "gemini-1.5-pro"
-    GPT_4O_MINI = "gpt-4o-mini"
     GPT_4_VISION = "gpt-4-vision-preview"
     GPT_4_TURBO = "gpt-4-turbo"
     GPT_4O = "gpt-4o"
