@@ -1,22 +1,29 @@
 // Keep in sync with backend (llm.py)
 // Order here matches dropdown order
 export enum CodeGenerationModel {
-  GPT_4O_2024_05_13 = "gpt-4o-2024-05-13",
-  GPT_4_TURBO_2024_04_09 = "gpt-4-turbo-2024-04-09",
+  GPT_4O_MINI = "gpt-4o-mini",
+  GPT_4O = "gpt-4o",
+  GPT_4_TURBO = "gpt-4-turbo",
   GPT_4_VISION = "gpt_4_vision",
   CLAUDE_3_SONNET = "claude_3_sonnet",
+  GEMINI_1_5_FLASH_8_b = "gemini-1.5-flash-8b",
   GEMINI_1_5_FLASH = "gemini-1.5-flash",
   GEMINI_1_5_PRO = "gemini-1.5-pro",
+  GEMINI_2_0_FLASH= "gemini-2.0-flash-exp",
 }
 
 // Will generate a static error if a model in the enum above is not in the descriptions
 export const CODE_GENERATION_MODEL_DESCRIPTIONS: {
   [key in CodeGenerationModel]: { name: string; inBeta: boolean };
 } = {
-  "gpt-4o-2024-05-13": { name: "GPT-4o 🌟", inBeta: false },
-  "gpt-4-turbo-2024-04-09": { name: "GPT-4 Turbo (Apr 2024)", inBeta: false },
-  gpt_4_vision: { name: "GPT-4 Vision (Nov 2023)", inBeta: false },
-  claude_3_sonnet: { name: "Claude 3 Sonnet", inBeta: false },
+  "gemini-2.0-flash-exp": { name: "GEMINI_2_0_FLASH", inBeta: false },
+  "gemini-1.5-flash-8b": { name: "Gemini 1.5 Flash 8b", inBeta: false },
   "gemini-1.5-flash": { name: "Gemini 1.5 Flash", inBeta: false },
   "gemini-1.5-pro": { name: "Gemini 1.5 PRO", inBeta: false },
+  "gpt-4o-mini": { name: "GPT-4o-mini", inBeta: false },
+  "gpt-4o": { name: "GPT-4o", inBeta: false },
+  "gpt-4-turbo": { name: "GPT-4 Turbo (Apr 2024)", inBeta: false },
+  gpt_4_vision: { name: "GPT-4 Vision (Nov 2023)", inBeta: false },
+  claude_3_sonnet: { name: "Claude 3 Sonnet", inBeta: false },
+
 };

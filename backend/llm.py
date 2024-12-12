@@ -15,14 +15,17 @@ from utils import pprint_prompt
 
 # Actual model versions that are passed to the LLMs and stored in our logs
 class Llm(Enum):
+    GPT_4O_MINI = "gpt-4o-mini"
     GPT_4_VISION = "gpt-4-vision-preview"
-    GPT_4_TURBO_2024_04_09 = "gpt-4-turbo-2024-04-09"
-    GPT_4O_2024_05_13 = "gpt-4o-2024-05-13"
-    CLAUDE_3_SONNET = "claude-3-sonnet-20240229"
-    CLAUDE_3_OPUS = "claude-3-opus-20240229"
-    CLAUDE_3_HAIKU = "claude-3-haiku-20240307"
+    GPT_4_TURBO = "gpt-4-turbo"
+    GPT_4O = "gpt-4o"
+    CLAUDE_3_SONNET = "claude-3-sonnet"
+    CLAUDE_3_OPUS = "claude-3-opus"
+    CLAUDE_3_HAIKU = "claude-3-haiku"
+    GEMINI_1_5_FLASH_8_b = "gemini-1.5-flash-8b"
     GEMINI_1_5_FLASH = "gemini-1.5-flash"
     GEMINI_1_5_PRO = "gemini-1.5-pro"
+    GEMINI_2_0_FLASH= "gemini-2.0-flash-exp"
 
 # Will throw errors if you send a garbage string
 def convert_frontend_str_to_llm(frontend_str: str) -> Llm:

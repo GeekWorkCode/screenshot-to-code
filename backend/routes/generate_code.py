@@ -115,7 +115,8 @@ async def stream_code(websocket: WebSocket):
             print("Using OpenAI API key from environment variable")
 
     if not openai_api_key and (
-        code_generation_model == Llm.GPT_4_VISION
+        code_generation_model == Llm.GPT_4O_MINI 
+        or code_generation_model == Llm.GPT_4_VISION
         or code_generation_model == Llm.GPT_4_TURBO_2024_04_09
         or code_generation_model == Llm.GPT_4O_2024_05_13
     ):
@@ -273,7 +274,7 @@ async def stream_code(websocket: WebSocket):
                     callback=lambda x: process_chunk(x),
                 )
                 exact_llm_version = code_generation_model
-            elif (code_generation_model == Llm.GEMINI_1_5_FLASH or code_generation_model == Llm.GEMINI_1_5_PRO):
+            elif (code_generation_model == Llm.GEMINI_1_5_FLASH or code_generation_model == Llm.GEMINI_1_5_PRO or code_generation_model == Llm.GEMINI_1_5_FLASH_8_b or code_generation_model == Llm.GEMINI_2_0_FLASH):
                 if not gemini_api_key:
                     await throw_error(
                         "No Google API key found. Please add the environment variable GOOGLE_API_KEY to backend/.env"
