@@ -273,7 +273,7 @@ async def stream_code(websocket: WebSocket):
                     callback=lambda x: process_chunk(x),
                 )
                 exact_llm_version = code_generation_model
-            elif (code_generation_model == Llm.GEMINI_1_5_FLASH or code_generation_model == Llm.GEMINI_1_5_PRO or code_generation_model == Llm.GEMINI_1_5_FLASH_8_b or code_generation_model == Llm.GEMINI_2_0_FLASH):
+            elif (code_generation_model == Llm.GEMINI_1_5_FLASH or code_generation_model == Llm.GEMINI_1_5_PRO or code_generation_model == Llm.GEMINI_1_5_FLASH_8_b or code_generation_model == Llm.GEMINI_2_0_FLASH or code_generation_model == Llm.GEMINI_2_0_FLASH_THINKING):
                 if not gemini_api_key:
                     await throw_error(
                         "No Google API key found. Please add the environment variable GOOGLE_API_KEY to backend/.env"
