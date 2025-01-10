@@ -1,6 +1,7 @@
 // Keep in sync with backend (llm.py)
 // Order here matches dropdown order
 export enum CodeGenerationModel {
+  GEMINI_2_0_FLASH_THINKING= "gemini-2.0-flash-thinking-exp-1219",
   GEMINI_2_0_FLASH= "gemini-2.0-flash-exp",
   GEMINI_1_5_FLASH_8_b = "gemini-1.5-flash-8b",
   GEMINI_1_5_FLASH = "gemini-1.5-flash",
@@ -16,6 +17,7 @@ export enum CodeGenerationModel {
 export const CODE_GENERATION_MODEL_DESCRIPTIONS: {
   [key in CodeGenerationModel]: { name: string; inBeta: boolean };
 } = {
+  "gemini-2.0-flash-thinking-exp-1219": { name: "Gemini 2.0 Flash thinking", inBeta: false },
   "gemini-2.0-flash-exp": { name: "Gemini 2.0 Flash", inBeta: false },
   "gemini-1.5-flash-8b": { name: "Gemini 1.5 Flash 8b", inBeta: false },
   "gemini-1.5-flash": { name: "Gemini 1.5 Flash", inBeta: false },

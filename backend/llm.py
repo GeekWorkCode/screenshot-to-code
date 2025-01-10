@@ -15,6 +15,7 @@ from utils import pprint_prompt
 
 # Actual model versions that are passed to the LLMs and stored in our logs
 class Llm(Enum):
+    GEMINI_2_0_FLASH_THINKING= "gemini-2.0-flash-thinking-exp-1219"
     GEMINI_2_0_FLASH= "gemini-2.0-flash-exp"
     GEMINI_1_5_FLASH_8_b = "gemini-1.5-flash-8b"
     GEMINI_1_5_FLASH = "gemini-1.5-flash"
